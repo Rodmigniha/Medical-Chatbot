@@ -7,7 +7,8 @@
 - **Interface utilisateur intuitive** : Interface simple pour poser des questions et obtenir des réponses.
 - **Recherche de similarité** : Utilisation de **FAISS** pour indexer et retrouver les documents pertinents.
 - **Stockage des réponses** : Sauvegarde des questions, réponses, sources et scores de similarité dans **PostgreSQL (Google Cloud SQL)**.
-- **Évaluation du chatbot** : Script d'évaluation pour tester la pertinence des réponses fournies.
+- **Mode Évaluation intégré** : Évaluez les réponses du chatbot directement dans l'interface Streamlit.
+- **Navigation fluide** : Basculer entre les modes Assistance médicale et Évaluation via une barre latérale.
 
 ---
 
@@ -63,22 +64,18 @@ Avant de lancer l'application, il est nécessaire de générer et stocker l'inde
 
 2. Ouvrez votre navigateur et accédez à l'URL affichée dans le terminal (généralement `http://localhost:8501`).  
 
-3. Posez une question dans le champ de texte et appuyez sur Entrée pour obtenir une réponse.  
-
-### Exemples
+3. Page d'accueil : Découvrez les fonctionnalités du chatbot et choisissez un mode dans la barre latérale.
 
 ![Dashboard boxplot](https://github.com/Rodmigniha/Medical-Chatbot/blob/main/data/Capture1.PNG)
 
-![Dashboard boxplot](https://github.com/Rodmigniha/Medical-Chatbot/blob/main/data/Capture2.PNG)
+4. Mode Assistance médicale : Posez une question dans le champ de texte et appuyez sur Entrée pour obtenir une réponse.
 
+![Dashboard boxplot](https://github.com/Rodmigniha/Medical-Chatbot/blob/main/data/Capture1-assistant.PNG)
 
-### Évaluer le chatbot
-1. Exécutez le script d'évaluation :
-   ```bash
-   python evaluation.py
-   ```
-2. Entrez vos questions (une par ligne). Tapez `fin` pour terminer.
-3. Analyse automatique des réponses et calcul des métriques d'évaluation.
+5. Mode Évaluation : Entrez plusieurs questions, évaluez les réponses générées, et consultez les métriques de performance (précision, rappel, F1-score).
+
+![Dashboard boxplot](https://github.com/Rodmigniha/Medical-Chatbot/blob/main/data/Capture2-evaluation.PNG)
+![Dashboard boxplot](https://github.com/Rodmigniha/Medical-Chatbot/blob/main/data/Capture3-evaluation.PNG)
 
 ---
 
