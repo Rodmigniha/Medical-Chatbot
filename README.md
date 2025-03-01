@@ -41,11 +41,41 @@ Remplacez les valeurs par vos propres informations de connexion.
 ## Utilisation
 
 ### Lancer l'application Streamlit
-```bash
-streamlit run app.py
-```
-Accédez ensuite à l'application via l'URL affichée (généralement `http://localhost:8501`).
+Voici la section mise à jour de ton `README.md` avec l'ajout des instructions pour `embed_vstor.py` :  
+
+---
+
+## Utilisation  
+
+### Première utilisation  
+
+Avant de lancer l'application, il est nécessaire de générer et stocker l'index FAISS localement. Pour cela :  
+
+1. Exécutez le script `embed_vstor.py` afin de générer l'index des embeddings :  
+   ```bash
+   python embed_vstor.py
+   ```  
+   
+2. Un dossier `faiss_index` sera créé après l'exécution. Déplacez ce dossier dans le répertoire `app` :  
+   ```bash
+   mv faiss_index app/
+   ```  
+
+### Lancer l'application Streamlit  
+
+1. Exécutez l'application Streamlit :  
+   ```bash
+   streamlit run app.py
+   ```  
+
+2. Ouvrez votre navigateur et accédez à l'URL affichée dans le terminal (généralement `http://localhost:8501`).  
+
+3. Posez une question dans le champ de texte et appuyez sur Entrée pour obtenir une réponse.  
+
+### Exemples
+
 ![Dashboard boxplot](https://github.com/Rodmigniha/Medical-Chatbot/blob/main/data/Capture1.PNG)
+
 ![Dashboard boxplot](https://github.com/Rodmigniha/Medical-Chatbot/blob/main/data/Capture2.PNG)
 
 
