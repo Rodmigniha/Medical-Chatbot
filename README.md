@@ -45,6 +45,9 @@ Remplacez les valeurs par vos propres informations de connexion.
 streamlit run app.py
 ```
 Accédez ensuite à l'application via l'URL affichée (généralement `http://localhost:8501`).
+![Dashboard boxplot](https://github.com/Rodmigniha/Medical-Chatbot/blob/main/data/Capture1.PNG)
+![Dashboard boxplot](https://github.com/Rodmigniha/Medical-Chatbot/blob/main/data/Capture2.PNG)
+
 
 ### Évaluer le chatbot
 1. Exécutez le script d'évaluation :
