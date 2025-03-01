@@ -59,7 +59,7 @@ Avant de lancer l'application, il est nécessaire de générer et stocker l'inde
 
 1. Exécutez l'application Streamlit :  
    ```bash
-   streamlit run app.py
+   streamlit run main.py
    ```  
 
 2. Ouvrez votre navigateur et accédez à l'URL affichée dans le terminal (généralement `http://localhost:8501`).  
