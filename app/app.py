@@ -5,7 +5,7 @@ from langchain_google_genai.embeddings import GoogleGenerativeAIEmbeddings
 from langchain_google_genai.chat_models import ChatGoogleGenerativeAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_community.vectorstores import FAISS
-
+from db_utils import insert_into_rm_med_table
 
 # Charger les variables d'environnement
 load_dotenv()
@@ -41,41 +41,73 @@ def create_prompt():
         ("ai", "Answer:"),
     ])
 
-def main():
-    st.title("Chatbot IA GENE & GCP")
+def answer_quest(question, enable_insert=True):
+    """Répond à une question en utilisant le modèle Gemini et retourne la réponse, les documents et les scores.
     
+    Args:
+        question (str): La question à poser.
+        enable_insert (bool): Si True, les résultats sont enregistrés dans la base de données. Par défaut, True.
+    
+    Returns:
+        tuple: (reponse, docs, scores) ou (None, None, None) en cas d'erreur.
+    """
     # Charger le vectorstore et le modèle Gemini
     vectorstore = load_vectorstore()
     llm = load_llm()
     prompt = create_prompt()
     
+    # Rechercher les documents les plus similaires avec leurs scores
+    docs_with_scores = vectorstore.similarity_search_with_score(question, k=3)  # k=3 pour les 3 meilleurs résultats
+    
+    # Extraire les documents et les scores
+    docs = [doc for doc, score in docs_with_scores]
+    scores = [score for doc, score in docs_with_scores]
+    
+    # Concaténer le contexte des documents
+    context = "\n".join([doc.page_content for doc in docs]) 
+    
+    # Formater le prompt avec la question et le contexte
+    formatted_prompt = prompt.format_messages(question=question, context=context)
+    
+    # Interroger Gemini via LangChain pour obtenir une réponse
+    ai_msg = llm.invoke(formatted_prompt)
+    
+    # Vérifier si le message renvoyé par Gemini contient la réponse
+    if hasattr(ai_msg, 'content'):
+        reponse = ai_msg.content
+        st.write("Réponse:", reponse)
+        
+        # Afficher les sources, focus_area et les scores de similarité
+        st.write("Sources ayant permis de répondre :")
+        for i, doc in enumerate(docs):
+            st.write(f"- Source: {doc.metadata['source']}, Focus Area: {doc.metadata['focus_area']}")
+            st.write(f"  Score de similarité: {scores[i]:.4f}, Type de similarité: cosine")
+            
+        # Enregistrer dans la table rm_med_table si enable_insert est True
+        if enable_insert:
+            for i, doc in enumerate(docs):
+                insert_into_rm_med_table(
+                    question=question,
+                    answer=reponse,
+                    source=doc.metadata['source'],
+                    focus_area=doc.metadata['focus_area'],
+                    similarity_score=scores[i],
+                    similarity_type="cosine"
+                )
+        
+        return reponse, docs, scores
+    else:
+        st.write("Erreur : la réponse générée ne contient pas de texte valide.")
+        return None, None, None
+
+def main():
+    st.title("HealthGenie Chatbot")
+    
     # Interface utilisateur
     question = st.text_input("Posez votre question:")
     
     if question:
-        # Rechercher les documents les plus similaires
-        docs = vectorstore.similarity_search(question, k=3)  
-        context = "\n".join([doc.page_content for doc in docs]) 
-        
-        # Formater le prompt avec la question et le contexte
-        formatted_prompt = prompt.format_messages(question=question,
-                                                  context=context)
-        
-        # Interroger Gemini via LangChain pour obtenir une réponse
-        ai_msg = llm.invoke(formatted_prompt)
-        
-        # Vérifier si le message renvoyé par Gemini contient la réponse
-        if hasattr(ai_msg, 'content'):
-            reponse = ai_msg.content
-            st.write("Réponse:", reponse)
-            
-            # Afficher les sources et focus_area
-            st.write("Sources ayant permis de répondre :")
-            for doc in docs:
-                st.write(f"- Source: {doc.metadata['source']}, Focus Area: {doc.metadata['focus_area']}")
-        else:
-            st.write("Erreur : la réponse générée ne contient pas de texte valide.")
+        answer_quest(question)  # enable_insert est True par défaut
 
 if __name__ == "__main__":
     main()
-

@@ -1,0 +1,15 @@
+streamlit
+pandas
+numpy
+scikit-learn
+python-dotenv
+google-cloud-storage
+google-cloud-sql-connector
+google-generativeai
+faiss-cpu 
+langchain
+langchain_google_genai
+langchain-community
+pylint
+autopep8
+psycopg2-binary
