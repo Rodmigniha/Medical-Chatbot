@@ -1,11 +1,11 @@
-import os
-from dotenv import load_dotenv
 import streamlit as st
+from db_utils import insert_into_rm_med_table
 from langchain_google_genai.embeddings import GoogleGenerativeAIEmbeddings
 from langchain_google_genai.chat_models import ChatGoogleGenerativeAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_community.vectorstores import FAISS
-from db_utils import insert_into_rm_med_table
+import os
+from dotenv import load_dotenv
 
 # Charger les variables d'environnement
 load_dotenv()
@@ -100,14 +100,12 @@ def answer_quest(question, enable_insert=True):
         st.write("Erreur : la réponse générée ne contient pas de texte valide.")
         return None, None, None
 
-def main():
-    st.title("HealthGenie Chatbot")
+def chatbot_mode():
+    """Mode chatbot : assistance médicale."""
+    st.title("HealthGenie Chatbot - Mode Assistance")
     
     # Interface utilisateur
     question = st.text_input("Posez votre question:")
     
     if question:
         answer_quest(question)  # enable_insert est True par défaut
-
-if __name__ == "__main__":
-    main()
