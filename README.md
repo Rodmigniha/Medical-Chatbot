@@ -40,13 +40,6 @@ Remplacez les valeurs par vos propres informations de connexion.
 
 ## Utilisation
 
-### Lancer l'application Streamlit
-Voici la section mise à jour de ton `README.md` avec l'ajout des instructions pour `embed_vstor.py` :  
-
----
-
-## Utilisation  
-
 ### Première utilisation  
 
 Avant de lancer l'application, il est nécessaire de générer et stocker l'index FAISS localement. Pour cela :  
