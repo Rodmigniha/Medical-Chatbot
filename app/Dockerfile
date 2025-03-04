@@ -11,8 +11,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copier tout le reste de l'application
 COPY . .
 
-# Exposer le port 8080 pour Cloud Run
-EXPOSE 8080
+# Exposer le port utilisé par Streamlit
+EXPOSE 8501
 
-# Lancer Streamlit en le forçant à écouter sur 0.0.0.0 et le port 8080
-CMD ["streamlit", "run", "main.py", "--server.port=8080", "--server.address=0.0.0.0"]
+# Lancer Streamlit avec les paramètres nécessaires
+CMD ["streamlit", "run", "main.py", "--server.port=8501", "--server.address=0.0.0.0"]
