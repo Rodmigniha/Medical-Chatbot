@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:latest
+    container_name: postgres-container
+    networks:
+      - my_medical_network
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"  # Ce port est redirigé vers l'hôte local via Cloud SQL Proxy
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always  # Assure que le service redémarre en cas de problème
+
+  fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile_api
+    container_name: fastapi-container
+    networks:
+      - my_medical_network
+    ports:
+      - "8181:8080"
+    environment:
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - DB_HOST=host.docker.internal  # Utilise l'hôte local via Docker
+      - DB_PORT=5432  # Port du Cloud SQL Proxy
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+    depends_on:
+      - db
+    restart: always  # Assure que le service redémarre en cas de problème
+
+  streamlit:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: streamlit-container
+    networks:
+      - my_medical_network
+    ports:
+      - "8501:8501"
+    environment:
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - DB_HOST=host.docker.internal  # Utilise l'hôte local via Docker
+      - DB_PORT=5432  # Port du Cloud SQL Proxy
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+    depends_on:
+      - fastapi
+    restart: always  # Assure que le service redémarre en cas de problème
+
+networks:
+  my_medical_network:
+    driver: bridge
+
+volumes:
+  postgres_data:

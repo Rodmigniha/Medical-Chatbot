@@ -5,6 +5,9 @@ venv/
 *.pyo
 *.pyd
 *.db
-*.env
 *.sqlite3
+Dockerfile_api
+Dockerfile
+docker-compose.yml
+*.log
 env-vars.yaml
