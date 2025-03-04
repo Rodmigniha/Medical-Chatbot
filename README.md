@@ -84,6 +84,11 @@ docker-compose up
 
 Ouvrez votre navigateur et rendez-vous sur `http://localhost:8501`.
 
+![Dashboard boxplot](https://github.com/Rodmigniha/Medical-Chatbot/blob/main/data/Capture1.PNG)
+![Dashboard boxplot](https://github.com/Rodmigniha/Medical-Chatbot/blob/main/data/Capture1-assistant.PNG)
+![Dashboard boxplot](https://github.com/Rodmigniha/Medical-Chatbot/blob/main/data/Capture2-evaluation.PNG)
+![Dashboard boxplot](https://github.com/Rodmigniha/Medical-Chatbot/blob/main/data/Capture3-evaluation.PNG)
+
 ## Déploiement sur Google Cloud Run
 
 1. **Créer un projet Google Cloud** et activer les API Cloud Run et Cloud SQL.
