@@ -19,9 +19,9 @@ Le **HealthGenie Chatbot** est conçu pour fournir des réponses médicales pré
 - **Stockage des réponses** : **PostgreSQL** sur **Google Cloud SQL** pour stocker les informations de réponse et les sources.
 
 ## Métriques
-- **Précision** : 0.92
-- **Rappel** : 0.89
-- **F1-score** : 0.90
+- **Précision** : 1
+- **Rappel** : 1
+- **F1-score** : 1
 - **Temps de réponse moyen** : 2.5 secondes
 
 ## Limitations
