@@ -33,6 +33,9 @@ Le **HealthGenie Chatbot** est une application interactive d'assistance médical
 - `requirements.txt` : Liste des dépendances Python.
 - `evaluation.py` : Script d'évaluation du chatbot.
 - `.env` : Variables d'environnement (API keys, credentials).
+- `conf.py` : Variables de configuration de la base de données.
+- `db_utils.py` : script pour interagir avec la base de données PostgreSQL hébergée sur Google Cloud SQL.
+- `core.py` : script pour répondre à des questions en utilisant un chatbot basé sur Gemini et un moteur de recherche sémantique FAISS.
 - `embed_vstor.py` : Script pour générer l'index FAISS à partir des données médicales.
 
 ## Instructions d'installation et d'utilisation
@@ -56,10 +59,6 @@ Créez un fichier `.env` à la racine du projet et ajoutez les informations suiv
 
 ```plaintext
 GOOGLE_API_KEY=votre_google_api_key
-DB_HOST=votre_host
-DB_PORT=votre_port
-DB_NAME=votre_db_name
-DB_USER=votre_utilisateur
 DB_PASSWORD=votre_mot_de_passe
 ```
 
